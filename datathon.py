@@ -10,6 +10,8 @@ print(current_path)
 
 import numpy as np
 
+
+# Synthetic data generation
 # Define the dimensions of the 2D array
 nHomes = 10
 nAttributes = 3
@@ -41,7 +43,6 @@ for iHome in range(nHomes):
   for jHome in range(nHomes):
     if iHome == jHome:
       competitionMatrix[iHome][jHome] = 0.5
-#      print(competitionMatrix[iHome][jHome])
     else:
       temp = 0.0
       for iAttribute in range(nAttributes):
@@ -51,15 +52,12 @@ for iHome in range(nHomes):
           temp = temp + (int)(homesData[iHome,iAttribute] < homesData[jHome,iAttribute])
       temp = temp/nAttributes
       competitionMatrix[iHome][jHome] = temp
-#      print(competitionMatrix[iHome][jHome])
 
+total_win_scores = [sum(row) for row in competitionMatrix]
 
-row_sums = [sum(row) for row in competitionMatrix]
-
-print(row_sums)
-
+# Sorting to find the winner home
 # Sorting the list and returning the indices
-sorted_with_indices = sorted(enumerate(row_sums), key=lambda x: x[1], reverse=True)
+sorted_with_indices = sorted(enumerate(total_win_scores), key=lambda x: x[1], reverse=True)
 
 # Extracting the sorted list and indices
 sorted_list = [item[1] for item in sorted_with_indices]
